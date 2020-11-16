@@ -1,7 +1,7 @@
-# Git It Done
+# Git It Done!
 
 ## Purpose
-Placeholder Description
+A site that allows its users to search for a GitHub user, or click on a language to see a list of repositories and how many open issues they have, in order to help them with their open-source projects.
 
 ## Built With
 * HTML
