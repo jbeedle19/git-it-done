@@ -1,20 +1,10 @@
 // Variables:
 var userFormEl = document.querySelector("#user-form");
 var nameInputEl = document.querySelector("#username");
+var repoContainerEl = document.querySelector("#repos-container");
+var repoSearchTerm = document.querySelector("#repo-search-term");
 
 // Functions:
-var getUserRepos = function(user) {
-    // Format the GitHub api url
-    var apiUrl = "https://api.github.com/users/" + user + "/repos";
-
-    // Make a request to the url
-    fetch(apiUrl).then(function(response) {
-        response.json().then(function(data) {
-            console.log(data);
-        });
-    });
-};
-
 var formSubmitHandler = function(event) {
     event.preventDefault();
     
@@ -28,6 +18,24 @@ var formSubmitHandler = function(event) {
         alert("Please enter a GitHub username");
     }
 }
+
+var getUserRepos = function(user) {
+    // Format the GitHub api url
+    var apiUrl = "https://api.github.com/users/" + user + "/repos";
+
+    // Make a request to the url
+    fetch(apiUrl).then(function(response) {
+        response.json().then(function(data) {
+            displayRepos(data, user);
+        });
+    });
+};
+
+var displayRepos = function(repos, searchTerm) {
+    console.log(repos);
+    console.log(searchTerm);
+};
+
 
 // Event Listeners:
 userFormEl.addEventListener("submit", formSubmitHandler);
