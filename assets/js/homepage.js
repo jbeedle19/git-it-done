@@ -1,3 +1,6 @@
+var userFormEl = document.querySelector("#user-form");
+var nameInputEl = document.querySelector("#username");
+
 var getUserRepos = function(user) {
     // Format the GitHub api url
     var apiUrl = "https://api.github.com/users/" + user + "/repos";
@@ -9,6 +12,8 @@ var getUserRepos = function(user) {
         });
     });
 };
+
+var formSubmitHandler
 
 getUserRepos("microsoft");
 getUserRepos("jbeedle19");
