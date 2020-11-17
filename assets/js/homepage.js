@@ -32,8 +32,44 @@ var getUserRepos = function(user) {
 };
 
 var displayRepos = function(repos, searchTerm) {
-    console.log(repos);
-    console.log(searchTerm);
+    // Clear old content
+    repoContainerEl.textContent = "";
+    repoSearchTerm.textContent = searchTerm;
+    
+    // Loop over repos
+    for (var i = 0; i < repos.length; i++) {
+        // Format repo name
+        var repoName = repos[i].owner.login + "/" + repos[i].name;
+
+        // Create a container for each repo
+        var repoEl = document.createElement("div");
+        repoEl.classList = "list-item flex-row justify-space-between align-center";
+
+        // Create a span element to hold repository name
+        var titleEl = document.createElement("span");
+        titleEl.textContent = repoName;
+
+        // Append to container
+        repoEl.appendChild(titleEl);
+
+        // Create a status element
+        var statusEl = document.createElement("span");
+        statusEl.classList = "flex-row align-center";
+
+        // Check if current repo has issues or not
+        if (repos[i].open_issues_count > 0) {
+            statusEl.innerHTML = 
+            "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + " issue(s)";
+        } else {
+            statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
+        }
+
+        // Append to container
+        repoEl.appendChild(statusEl);
+
+        // Append container to the dom
+        repoContainerEl.appendChild(repoEl);
+    }
 };
 
 
