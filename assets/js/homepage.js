@@ -25,9 +25,13 @@ var getUserRepos = function(user) {
 
     // Make a request to the url
     fetch(apiUrl).then(function(response) {
-        response.json().then(function(data) {
+        if (response.ok) {
+            response.json().then(function(data) {
             displayRepos(data, user);
-        });
+            });
+        } else {
+            alert("Error: " + response.statusText);
+        }
     });
 };
 
