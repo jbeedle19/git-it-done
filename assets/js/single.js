@@ -5,15 +5,25 @@ var repoNameEl = document.querySelector("#repo-name");
 
 // Functions:
 var getRepoName = function() {
+    // Grab repo name from URL query string
     var queryString = document.location.search;
     var repoName = queryString.split("=")[1];
-    getRepoIssues(repoName);
-    repoNameEl.textContent = repoName;
-}
+    
+    if (repoName) {
+        // Display repo name on the page
+        repoNameEl.textContent = repoName;
+
+        getRepoIssues(repoName);
+    } else {
+        // if no repo was given, redirect to the homepage
+        document.location.replace("./index.html");
+    }
+};
 
 var getRepoIssues = function(repo) {
     var apiUrl = "https://api.github.com/repos/" + repo + "/issues?direction=asc";
     
+    // Make a get request to URL
     fetch(apiUrl).then(function(response) {
         // Request was successful
         if (response.ok) {
@@ -27,9 +37,10 @@ var getRepoIssues = function(repo) {
                 }
             });
         } else {
-            alert("There was a problem with your request!");
+            // If not successful, redirect to homepage
+            document.location.replace("./index.html");
         }
-    })
+    });
 };
 
 var displayIssues = function(issues) {
@@ -81,7 +92,5 @@ var displayWarning = function(repo) {
     // Append to warning container
     limitWarningEl.appendChild(linkEl);
 };
-
-//getRepoIssues("angular/angular");
 
 getRepoName();
